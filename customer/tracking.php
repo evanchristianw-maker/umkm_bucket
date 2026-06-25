@@ -6,6 +6,8 @@ include '../config/koneksi.php';
 <html>
 <head>
     <title>Tracking Pesanan</title>
+    <link rel="stylesheet"
+href="../assets/css/style.css">
 </head>
 <body>
 

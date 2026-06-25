@@ -1,3 +1,6 @@
+<?php include 'template/header.php'; ?>
+<?php include 'template/sidebar.php'; ?>
+
 <?php
 
 session_start();
@@ -54,3 +57,5 @@ Update Stok
 </button>
 
 </form>
+
+<?php include 'template/footer.php'; ?>

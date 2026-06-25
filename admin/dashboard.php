@@ -1,3 +1,6 @@
+<?php include 'template/header.php'; ?>
+<?php include 'template/sidebar.php'; ?>
+
 <?php
 
 session_start();
@@ -72,3 +75,5 @@ $stok = mysqli_fetch_assoc($qStok);
 
 </body>
 </html>
+
+<?php include 'template/footer.php'; ?>
