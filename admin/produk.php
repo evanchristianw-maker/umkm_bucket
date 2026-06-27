@@ -16,7 +16,7 @@ $data = mysqli_query($conn,"SELECT * FROM katalog");
 
 <h1>Manajemen Produk</h1>
 
-<p>Kelola seluruh katalog produk UMKM Bucket.</p>
+<p>Kelola seluruh katalog produk toko Buket.</p>
 
 <br>
 <a href="?tambah=1" class="btn btn-success">

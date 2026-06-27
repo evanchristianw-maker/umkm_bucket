@@ -25,7 +25,7 @@ $data = mysqli_query($conn, "SELECT * FROM stok_bahan");
 <a href="?tambah=1" class="btn btn-success">
     + Tambah Bahan
 </a>
-
+|
 <a href="dashboard.php" class="btn btn-primary">
     Dashboard
 </a>

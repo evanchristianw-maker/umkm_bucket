@@ -1,6 +1,6 @@
 <div class="sidebar">
 
-    <h2>UMKM Bucket</h2>
+    <h2>Toko Buket</h2>
 
     <a href="dashboard.php">Dashboard</a>
 
