@@ -12,7 +12,7 @@
 
     <div class="login-card">
 
-        <h1>UMKM Bucket</h1>
+        <h1>Toko Buket</h1>
 
         <p>Login Admin</p>
 
