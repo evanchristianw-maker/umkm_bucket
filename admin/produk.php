@@ -1,6 +1,3 @@
-<?php include 'template/header.php'; ?>
-<?php include 'template/sidebar.php'; ?>
-
 <?php
 session_start();
 
@@ -14,25 +11,27 @@ include '../config/koneksi.php';
 $data = mysqli_query($conn,"SELECT * FROM katalog");
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Kelola Produk</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
+<?php include 'template/header.php'; ?>
+<?php include 'template/sidebar.php'; ?>    
 
-<h2>Data Produk</h2>
+<h1>Manajemen Produk</h1>
 
-<a href="?tambah=1">Tambah Produk</a>
+<p>Kelola seluruh katalog produk UMKM Bucket.</p>
+
+<br>
+<a href="?tambah=1" class="btn btn-success">
+    + Tambah Produk
+</a>
 |
-<a href="dashboard.php">Dashboard</a>
-
-<br><br>
+<a href="dashboard.php" class="btn btn-primary">
+    Dashboard
+</a>
 
 <?php
 if(isset($_GET['tambah'])){
 ?>
+
+<div class="card">
 
 <form action="../proses/tambah_produk.php"
 method="POST"
@@ -66,17 +65,19 @@ Status <br>
 
 <br><br>
 
-<button type="submit">
-Simpan
+<button type="submit" class="btn btn-success">
+    Simpan
 </button>
 
 </form>
+</div>
 
 <hr>
 
 <?php } ?>
 
-<table border="1" cellpadding="10">
+<div class="card">
+<table>
 
 <tr>
     <th>ID</th>
@@ -110,15 +111,17 @@ width="80">
 
 <td>
 
-<a href="edit_produk.php?id=<?= $row['id_produk']; ?>">
-Edit
+<a href="edit_produk.php?id=<?= $row['id_produk']; ?>"
+class="btn btn-primary">
+    Edit
 </a>
 
 |
 
 <a href="../proses/hapus_produk.php?id=<?= $row['id_produk']; ?>"
+class="btn btn-danger"
 onclick="return confirm('Yakin hapus produk?')">
-Hapus
+    Hapus
 </a>
 
 </td>
@@ -128,8 +131,6 @@ Hapus
 <?php } ?>
 
 </table>
-
-</body>
-</html>
+</div>
 
 <?php include 'template/footer.php'; ?>
