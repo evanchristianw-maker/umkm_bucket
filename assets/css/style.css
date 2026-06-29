@@ -831,3 +831,24 @@ background:#198754;
 .status-dibatalkan{
 background:#dc3545;
 }
+.card{
+    max-width:100%;
+}
+.detail-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.detail-table td{
+padding:12px;
+border-bottom:1px solid #ddd;
+vertical-align:top;
+}
+
+.card{
+margin-bottom:20px;
+}
+
+.card h2{
+margin-bottom:15px;
+}

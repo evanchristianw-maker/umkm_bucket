@@ -101,199 +101,30 @@ Rp <?= number_format($data['total_harga'],0,",","."); ?>
 </td>
 
 <td>
-
-<form action="../proses/update_status_pesanan.php" method="POST">
-
-<input
-type="hidden"
-name="id_pesanan"
-value="<?= $data['id_pesanan']; ?>">
-
-<select
-name="status_pesanan"
-class="status-select"
-onchange="this.form.submit()">
-
-<option value="Menunggu"
-<?= $data['status_pesanan']=="Menunggu"?"selected":"";?>>
-Menunggu
-</option>
-
-<option value="Diproses"
-<?= $data['status_pesanan']=="Diproses"?"selected":"";?>>
-Diproses
-</option>
-
-<option value="Selesai"
-<?= $data['status_pesanan']=="Selesai"?"selected":"";?>>
-Selesai
-</option>
-
-<option value="Dibatalkan"
-<?= $data['status_pesanan']=="Dibatalkan"?"selected":"";?>>
-Dibatalkan
-</option>
-
-</select>
-
-</form>
-
+<span class="status-badge <?= $warnaStatus; ?>">
+<?= $data['status_pesanan']; ?>
+</span>
 </td>
 
 <td>
 
-<button
-type="button"
-class="btn btn-primary"
-onclick="detailPesanan(
-'<?= $data['id_pesanan']; ?>',
-'<?= htmlspecialchars($data['warna_kertas']); ?>',
-'<?= htmlspecialchars($data['jenis_isi']); ?>',
-'<?= htmlspecialchars($data['isi_custom']); ?>',
-'<?= htmlspecialchars($data['ucapan']); ?>',
-'<?= htmlspecialchars($data['tambahan']); ?>',
-'<?= $data['jumlah']; ?>'
-)">
-
+<a href="detail_pesanan.php?id=<?= $data['id_pesanan']; ?>" class="btn btn-primary">
 Detail
-
-</button>
+</a>
 
 </td>
+
+</tr>
 
 <?php
 }
 ?>
 
 </table>
-</div>
-
-<! MODAL DETAIL PEMESANAN >
-
-<div id="modalDetail" class="modal">
-
-<div class="modal-content">
-
-<span class="close" onclick="tutupModal()">&times;</span>
-
-<h2>Detail Pesanan</h2>
-
-<hr><br>
-
-<table style="width:100%;">
-
-<tr>
-<td width="35%"><b>ID Pesanan</b></td>
-<td id="idPesanan"></td>
-</tr>
-
-<tr>
-<td><b>Warna Kertas</b></td>
-<td id="warnaKertas"></td>
-</tr>
-
-<tr>
-<td><b>Jenis Isi</b></td>
-<td id="jenisIsi"></td>
-</tr>
-
-<tr>
-<td><b>Isi Custom</b></td>
-<td id="isiCustom"></td>
-</tr>
-
-<tr>
-<td><b>Ucapan</b></td>
-<td id="ucapan"></td>
-</tr>
-
-<tr>
-<td><b>Tambahan</b></td>
-<td id="tambahan"></td>
-</tr>
-
-<tr>
-<td><b>Jumlah</b></td>
-<td id="jumlah"></td>
-</tr>
-
-</table>
-
-<br>
-
-</div>
-</div>
-
-
-<center>
-
-<button
-class="btn btn-primary"
-onclick="tutupModal()">
-
-Tutup
-
-</button>
-
-</center>
 
 </div>
 
 </div>
-
-<script>
-
-function detailPesanan(
-
-id,
-warna,
-jenis,
-custom,
-ucapan,
-tambahan,
-jumlah
-
-){
-
-document.getElementById("modalDetail").style.display="block";
-
-document.getElementById("idPesanan").innerHTML=id;
-
-document.getElementById("warnaKertas").innerHTML=warna;
-
-document.getElementById("jenisIsi").innerHTML=jenis;
-
-document.getElementById("isiCustom").innerHTML=custom;
-
-document.getElementById("ucapan").innerHTML=ucapan;
-
-document.getElementById("tambahan").innerHTML=tambahan;
-
-document.getElementById("jumlah").innerHTML=jumlah;
-
-}
-
-function tutupModal(){
-
-document.getElementById("modalDetail").style.display="none";
-
-}
-
-window.onclick=function(event){
-
-var modal=document.getElementById("modalDetail");
-
-if(event.target==modal){
-
-modal.style.display="none";
-
-}
-
-}
-
-</script>
-
-</div>
-
 
 <?php include 'template/footer.php'; ?>
+
