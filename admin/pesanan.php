@@ -26,158 +26,22 @@ ORDER BY p.tanggal_pesan DESC
 ");
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
 
-<head>
+<h1>Manajemen Pesanan</h1>
 
-<meta charset="UTF-8">
+<p>Kelola seluruh pesanan pelanggan.</p>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<br>
 
-<title>Manajemen Pesanan</title>
+<div style="margin-bottom:20px;">
+    <a href="dashboard.php" class="btn btn-primary">
+        Dashboard
+    </a>
+</div>
 
-<style>
+<div class="card">
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-    background:#f5f5f5;
-}
-
-.container{
-    width:95%;
-    margin:30px auto;
-}
-
-h2{
-    margin-bottom:20px;
-    color:#333;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-}
-
-table th{
-
-    background:#4e73df;
-    color:white;
-    padding:12px;
-
-}
-
-table td{
-
-    padding:12px;
-    border:1px solid #ddd;
-    text-align:center;
-
-}
-
-tr:nth-child(even){
-
-    background:#f9f9f9;
-
-}
-
-.status{
-
-    padding:6px 12px;
-    border-radius:20px;
-    color:white;
-    font-size:13px;
-
-}
-
-.pending{
-
-    background:#ffc107;
-    color:black;
-
-}
-
-.diproses{
-
-    background:#17a2b8;
-
-}
-
-.selesai{
-
-    background:#28a745;
-
-}
-
-.dibatalkan{
-
-    background:#dc3545;
-
-}
-
-.btn-detail{
-
-    background:#0d6efd;
-    color:white;
-    border:none;
-    padding:8px 15px;
-    border-radius:5px;
-    cursor:pointer;
-
-}
-
-.btn-detail:hover{
-
-    background:#084298;
-
-}
-
-.modal{
-
-display:none;
-position:fixed;
-left:0;
-top:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.6);
-
-}
-
-.modal-content{
-
-background:white;
-width:500px;
-margin:60px auto;
-padding:20px;
-border-radius:10px;
-
-}
-
-.close{
-
-float:right;
-font-size:25px;
-cursor:pointer;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>Manajemen Pesanan</h2>
+<div style="overflow-x:auto;">
 
 <table>
 
@@ -204,19 +68,20 @@ cursor:pointer;
 <?php
 while($data = mysqli_fetch_assoc($query)){
 
-    $status = strtolower(trim($data['status_pesanan']));
+  $status = strtolower($data['status_pesanan']);
 
-    if($status=="pending"){
-        $warnaStatus="pending";
-    }elseif($status=="diproses"){
-        $warnaStatus="diproses";
-    }elseif($status=="selesai"){
-        $warnaStatus="selesai";
-    }elseif($status=="dibatalkan"){
-        $warnaStatus="dibatalkan";
-    }else{
-        $warnaStatus="pending";
-    }
+if($status=="menunggu"){
+    $warnaStatus="menunggu";
+}
+elseif($status=="diproses"){
+    $warnaStatus="diproses";
+}
+elseif($status=="selesai"){
+    $warnaStatus="selesai";
+}
+else{
+    $warnaStatus="dibatalkan";
+}
 ?>
 
 <tr>
@@ -237,19 +102,49 @@ Rp <?= number_format($data['total_harga'],0,",","."); ?>
 
 <td>
 
-<span class="status <?= $warnaStatus; ?>">
+<form action="../proses/update_status_pesanan.php" method="POST">
 
-<?= $data['status_pesanan']; ?>
+<input
+type="hidden"
+name="id_pesanan"
+value="<?= $data['id_pesanan']; ?>">
 
-</span>
+<select
+name="status_pesanan"
+class="status-select"
+onchange="this.form.submit()">
+
+<option value="Menunggu"
+<?= $data['status_pesanan']=="Menunggu"?"selected":"";?>>
+Menunggu
+</option>
+
+<option value="Diproses"
+<?= $data['status_pesanan']=="Diproses"?"selected":"";?>>
+Diproses
+</option>
+
+<option value="Selesai"
+<?= $data['status_pesanan']=="Selesai"?"selected":"";?>>
+Selesai
+</option>
+
+<option value="Dibatalkan"
+<?= $data['status_pesanan']=="Dibatalkan"?"selected":"";?>>
+Dibatalkan
+</option>
+
+</select>
+
+</form>
 
 </td>
 
 <td>
 
 <button
-class="btn-detail"
-
+type="button"
+class="btn btn-primary"
 onclick="detailPesanan(
 '<?= $data['id_pesanan']; ?>',
 '<?= htmlspecialchars($data['warna_kertas']); ?>',
@@ -266,13 +161,12 @@ Detail
 
 </td>
 
-</tr>
-
 <?php
 }
 ?>
 
 </table>
+</div>
 
 <! MODAL DETAIL PEMESANAN >
 
@@ -327,10 +221,14 @@ Detail
 
 <br>
 
+</div>
+</div>
+
+
 <center>
 
 <button
-class="btn-detail"
+class="btn btn-primary"
 onclick="tutupModal()">
 
 Tutup
@@ -397,8 +295,5 @@ modal.style.display="none";
 
 </div>
 
-</body>
-
-</html>
 
 <?php include 'template/footer.php'; ?>

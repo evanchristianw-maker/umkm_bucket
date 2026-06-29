@@ -1,5 +1,3 @@
-<?php include 'template/header.php'; ?>
-<?php include 'template/sidebar.php'; ?>
 
 <?php
 include "../config/koneksi.php";
@@ -17,172 +15,29 @@ ORDER BY pembayaran.tanggal_upload DESC
 ");
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
+<?php include 'template/header.php'; ?>
+<?php include 'template/sidebar.php'; ?>
 
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Manajemen Pembayaran</title>
+<h1>Manajemen Pembayaran</h1>
 
-<style>
+<p>Kelola seluruh pembayaran pelanggan.</p>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
+<br>    
 
-body{
-background:#f5f5f5;
-}
 
-.container{
-width:95%;
-margin:30px auto;
-}
+<div class="card">
 
-h2{
-margin-bottom:20px;
-color:#333;
-}
+<div style="margin-bottom:20px;">
+    <a href="dashboard.php" class="btn btn-primary">
+        Dashboard
+    </a>
+</div>
 
-table{
-
-width:100%;
-border-collapse:collapse;
-background:white;
-
-}
-
-table th{
-
-background:#4e73df;
-color:white;
-padding:12px;
-
-}
-
-table td{
-
-padding:10px;
-border:1px solid #ddd;
-text-align:center;
-
-}
-
-tr:nth-child(even){
-
-background:#f8f8f8;
-
-}
-
-.status{
-
-padding:6px 12px;
-border-radius:20px;
-color:white;
-font-size:13px;
-
-}
-
-.pending{
-
-background:#ffc107;
-color:black;
-
-}
-
-.verifikasi{
-
-background:#28a745;
-
-}
-
-.tolak{
-
-background:#dc3545;
-
-}
-
-.btn{
-
-padding:8px 15px;
-border:none;
-border-radius:5px;
-cursor:pointer;
-color:white;
-
-}
-
-.btn-bukti{
-
-background:#17a2b8;
-
-}
-
-.btn-verifikasi{
-
-background:#28a745;
-
-}
-
-.btn-tolak{
-
-background:#dc3545;
-
-}
-
-.modal{
-
-display:none;
-position:fixed;
-left:0;
-top:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.6);
-
-}
-
-.modal-content{
-
-background:white;
-width:550px;
-margin:60px auto;
-padding:20px;
-border-radius:10px;
-
-}
-
-.close{
-
-float:right;
-font-size:25px;
-cursor:pointer;
-
-}
-
-img{
-
-max-width:100%;
-border-radius:10px;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>Manajemen Pembayaran</h2>
+<div style="overflow-x:auto;">
 
 <table>
 
@@ -259,8 +114,7 @@ Rp <?= number_format($data['total_harga'],0,",","."); ?>
 <td>
 
 <button
-class="btn btn-bukti"
-
+class="btn btn-info"
 onclick="lihatBukti(
 '<?= $data['id_pembayaran']; ?>',
 '<?= $data['file_bukti']; ?>',
@@ -268,11 +122,8 @@ onclick="lihatBukti(
 '<?= $data['jumlah_cod']; ?>',
 '<?= $data['tipe_bayar']; ?>'
 )">
-
 Lihat
-
 </button>
-
 </td>
 
 <td>
@@ -284,27 +135,16 @@ if($data['status_verifikasi']=="Pending" || $data['status_verifikasi']==""){
 ?>
 
 <button
-
-class="btn btn-verifikasi"
-
-onclick="verifikasiPembayaran(
-'<?= $data['id_pembayaran']; ?>'
-)">
-
+class="btn btn-success"
+onclick="verifikasiPembayaran('<?= $data['id_pembayaran']; ?>')">
 Verifikasi
-
 </button>
 
+
 <button
-
-class="btn btn-tolak"
-
-onclick="tolakPembayaran(
-'<?= $data['id_pembayaran']; ?>'
-)">
-
+class="btn btn-danger"
+onclick="tolakPembayaran('<?= $data['id_pembayaran']; ?>')">
 Tolak
-
 </button>
 
 <?php
@@ -329,11 +169,15 @@ echo "-";
 
 </table>
 
+</div>
+
+</div>
+
 <! MODAL LIHAT BUKTI >
 
 <div id="modalBukti" class="modal">
 
-<div class="modal-content">
+    <div class="modal-content">
 
 <span class="close" onclick="tutupModal()">&times;</span>
 
@@ -373,11 +217,9 @@ alt="Bukti Pembayaran">
 <center>
 
 <button
-class="btn btn-bukti"
+class="btn btn-info"
 onclick="tutupModal()">
-
 Tutup
-
 </button>
 
 </center>
@@ -445,7 +287,7 @@ document.getElementById("catatanCod").innerHTML=catatan;
 
 document.getElementById("jumlahCod").innerHTML=jumlah;
 
-document.getElementById("gambarBukti").src="../assets/upload/produk/"+file;
+document.getElementById("gambarBukti").src="../assets/upload/pembayaran/"+file;
 
 }
 
@@ -499,8 +341,5 @@ document.getElementById("formTolak").submit();
 
 </div>
 
-</body>
-
-</html> 
 
 <?php include 'template/footer.php'; ?>

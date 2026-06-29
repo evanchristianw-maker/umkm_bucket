@@ -46,6 +46,22 @@
 
 }
 
+.pending{
+    background:#ffc107;
+    color:#333;
+}
+
+.diproses{
+    background:#3b82f6;
+}
+
+.selesai{
+    background:#1ba363;
+}
+
+.dibatalkan{
+    background:#dc2f37;
+}
 /* ======================================================
    BODY
 ====================================================== */
@@ -240,6 +256,10 @@ p{
 
     background:var(--danger);
 
+}
+
+.btn-info{
+    background:var(--info);
 }
 
 /* ======================================================
@@ -676,4 +696,138 @@ input[type="file"]{
     text-align:center;
     color:#777;
 
+}
+
+.modal{
+
+display:none;
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+z-index:999;
+
+}
+
+.modal-content{
+
+background:white;
+width:550px;
+margin:60px auto;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+}
+
+.close{
+
+float:right;
+font-size:26px;
+cursor:pointer;
+
+}
+
+.pending{
+    background:#ffc107;
+    color:#333;
+}
+
+.verifikasi{
+    background:#1ba363;
+}
+
+.tolak{
+    background:#dc2f37;
+}
+.pending{
+    background:#f2be1a;
+    color:#333;
+}
+
+.diproses{
+    background:#3b82f6;
+    color:#fff;
+}
+
+.selesai{
+    background:#1ba363;
+    color:#fff;
+}
+
+.dibatalkan{
+    background:#dc2f37;
+    color:#fff;
+}
+.menunggu{
+    background:#f2be1a;
+    color:#333;
+}
+
+.diproses{
+    background:#3b82f6;
+}
+
+.selesai{
+    background:#1ba363;
+}
+
+.dibatalkan{
+    background:#dc2f37;
+}
+.card{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    padding:12px 15px;
+    text-align:center;
+    vertical-align:middle;
+}
+
+table th{
+    background:#3b5229;
+    color:white;
+}
+
+table tr:nth-child(even){
+    background:#f8f8f8;
+}
+
+table tr:hover{
+    background:#eef3ea;
+}
+.status-select{
+
+padding:8px;
+border-radius:8px;
+font-weight:bold;
+border:none;
+color:white;
+
+}
+
+.status-menunggu{
+background:#ffc107;
+color:#333;
+}
+
+.status-diproses{
+background:#0dcaf0;
+}
+
+.status-selesai{
+background:#198754;
+}
+
+.status-dibatalkan{
+background:#dc3545;
 }
