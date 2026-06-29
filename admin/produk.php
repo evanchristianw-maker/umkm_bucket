@@ -22,7 +22,6 @@ $data = mysqli_query($conn,"SELECT * FROM katalog");
 <a href="?tambah=1" class="btn btn-success">
     + Tambah Produk
 </a>
-|
 <a href="dashboard.php" class="btn btn-primary">
     Dashboard
 </a>
@@ -116,7 +115,6 @@ class="btn btn-primary">
     Edit
 </a>
 
-|
 
 <a href="../proses/hapus_produk.php?id=<?= $row['id_produk']; ?>"
 class="btn btn-danger"
