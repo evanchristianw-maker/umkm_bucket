@@ -56,6 +56,37 @@ body{
 }
 
 /* ======================================================
+   HEADING
+====================================================== */
+
+h1{
+
+    font-size:30px;
+    margin-bottom:10px;
+    color:var(--primary);
+
+}
+
+h2{
+
+    font-size:24px;
+    margin-bottom:10px;
+
+}
+
+h3{
+
+    margin-bottom:10px;
+
+}
+
+p{
+
+    line-height:1.6;
+
+}
+
+/* ======================================================
    LAYOUT
 ====================================================== */
 
@@ -135,6 +166,14 @@ body{
 
     margin-bottom:20px;
 
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-2px);
+
 }
 
 /* ======================================================
@@ -165,6 +204,7 @@ body{
 
 .btn:hover{
 
+    opacity:.9;
     transform:translateY(-2px);
 
 }
@@ -207,6 +247,10 @@ table{
 
     background:white;
 
+    border-radius:10px;
+
+    overflow:hidden;
+
 }
 
 table th{
@@ -240,24 +284,19 @@ table tr:hover{
 
 }
 
+
 /* ======================================================
    FORM
 ====================================================== */
 
 form{
-
     margin-top:15px;
-
 }
 
 label{
-
     display:block;
-
     margin-bottom:6px;
-
     font-weight:bold;
-
 }
 
 input,
@@ -265,16 +304,13 @@ select,
 textarea{
 
     width:100%;
-
     padding:10px;
-
     border:1px solid var(--border);
-
     border-radius:8px;
-
     margin-bottom:15px;
-
     outline:none;
+
+    transition:.3s;
 
 }
 
@@ -283,6 +319,27 @@ select:focus,
 textarea:focus{
 
     border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(59,82,41,.15);
+
+}
+
+textarea{
+
+    resize:vertical;
+    min-height:120px;
+
+}
+
+input[type="file"]{
+
+    padding:8px;
+    background:white;
+
+}
+
+::placeholder{
+
+    color:#999;
 
 }
 
@@ -433,5 +490,47 @@ textarea:focus{
 .habis{
 
     background:var(--danger);
+
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width:768px){
+
+    .sidebar{
+
+        position:relative;
+        width:100%;
+        min-height:auto;
+
+    }
+
+    .content{
+
+        margin-left:0;
+        padding:15px;
+
+    }
+
+    table{
+
+        display:block;
+        overflow-x:auto;
+
+    }
+
+    .login-card{
+
+        width:95%;
+
+    }
+
+    .product-grid{
+
+        grid-template-columns:1fr;
+
+    }
 
 }
