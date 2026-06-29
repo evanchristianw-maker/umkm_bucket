@@ -31,7 +31,7 @@ $data = mysqli_fetch_assoc($query);
 
 <div class="card">
 
-<form action="../proses/edit_produk.php"
+<form action="../proses/update_produk.php"
       method="POST"
       enctype="multipart/form-data">
 
