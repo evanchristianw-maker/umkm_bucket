@@ -12,45 +12,79 @@ include '../config/koneksi.php';
 $id = $_GET['id'];
 
 $query = mysqli_query(
-    $conn,
-    "SELECT * FROM stok_bahan
-     WHERE id_bahan='$id'"
+$conn,
+"SELECT * FROM stok_bahan
+WHERE id_bahan='$id'"
 );
 
 $data = mysqli_fetch_assoc($query);
 
 ?>
 
-<form action="../proses/update_stok.php"
-method="POST">
+<?php include 'template/header.php'; ?>
+<?php include 'template/sidebar.php'; ?>
 
-<input type="hidden"
+<h1>Edit Stok Bahan</h1>
+
+<p>Perbarui informasi stok bahan.</p>
+
+<br>
+
+<div class="card">
+
+<form action="../proses/update_stok.php" method="POST">
+
+<input
+type="hidden"
 name="id_bahan"
 value="<?= $data['id_bahan']; ?>">
 
-Nama Bahan<br>
-<input type="text"
+<label>Kode Bahan</label>
+
+<input
+type="text"
+name="kode_bahan"
+value="<?= $data['kode_bahan']; ?>"
+required>
+
+<label>Nama Bahan</label>
+
+<input
+type="text"
 name="nama_bahan"
-value="<?= $data['nama_bahan']; ?>">
+value="<?= $data['nama_bahan']; ?>"
+required>
 
-<br><br>
+<label>Jumlah</label>
 
-Jumlah<br>
-<input type="number"
+<input
+type="number"
 name="jumlah"
-value="<?= $data['jumlah']; ?>">
+value="<?= $data['jumlah']; ?>"
+required>
 
-<br><br>
+<label>Satuan</label>
 
-Satuan<br>
-<input type="text"
+<input
+type="text"
 name="satuan"
-value="<?= $data['satuan']; ?>">
+value="<?= $data['satuan']; ?>"
+required>
 
-<br><br>
-
-<button>
+<button
+type="submit"
+class="btn btn-success">
 Update Stok
 </button>
 
+<a
+href="stok.php"
+class="btn btn-primary">
+Kembali
+</a>
+
 </form>
+
+</div>
+
+<?php include 'template/footer.php'; ?>
