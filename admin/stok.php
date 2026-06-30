@@ -102,8 +102,6 @@ Simpan
 <?php while($row=mysqli_fetch_assoc($data)){ ?>
 
 <?php
-    // Pastikan jumlah tidak pernah ditampilkan negatif,
-    // walau data di database entah kenapa minus
     $jumlahTampil = max(0, (int)$row['jumlah']);
 ?>
 
