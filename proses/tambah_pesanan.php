@@ -44,9 +44,31 @@ if ($aksi === 'simpan_pesanan') {
 
     // Generate ID Pesanan unik: PES-YYYYMMDD-XXXX
     $tanggalHariIni = date('Ymd');
-    $qCount = mysqli_query($conn, "SELECT COUNT(*) as total FROM pesanan WHERE id_pesanan LIKE 'PES-$tanggalHariIni%'");
-    $countHariIni = mysqli_fetch_assoc($qCount)['total'] + 1;
-    $id_pesanan = 'PES-' . $tanggalHariIni . '-' . str_pad($countHariIni, 4, '0', STR_PAD_LEFT);
+
+$q = mysqli_query($conn,"
+SELECT id_pesanan
+FROM pesanan
+WHERE id_pesanan LIKE 'PES-$tanggalHariIni-%'
+ORDER BY id_pesanan DESC
+LIMIT 1
+");
+
+if(mysqli_num_rows($q) > 0){
+
+    $last = mysqli_fetch_assoc($q);
+
+    // Ambil angka terakhir, contoh: PES-20260630-0002 -> 0002
+    $nomor = (int)substr($last['id_pesanan'], -4);
+
+    $nomor++;
+
+}else{
+
+    $nomor = 1;
+
+}
+
+$id_pesanan = "PES-$tanggalHariIni-".str_pad($nomor,4,"0",STR_PAD_LEFT);
 
     $tanggal_pesan = date('Y-m-d H:i:s');
 
@@ -166,9 +188,30 @@ elseif ($aksi === 'upload_bukti') {
 
         // Generate ID Pembayaran unik: PAY-YYYYMMDD-XXXX
         $tanggalHariIni = date('Ymd');
-        $qCount = mysqli_query($conn, "SELECT COUNT(*) as total FROM pembayaran WHERE id_pembayaran LIKE 'PAY-$tanggalHariIni%'");
-        $countHariIni = mysqli_fetch_assoc($qCount)['total'] + 1;
-        $id_pembayaran = 'PAY-' . $tanggalHariIni . '-' . str_pad($countHariIni, 4, '0', STR_PAD_LEFT);
+
+$q = mysqli_query($conn,"
+SELECT id_pembayaran
+FROM pembayaran
+WHERE id_pembayaran LIKE 'PAY-$tanggalHariIni-%'
+ORDER BY id_pembayaran DESC
+LIMIT 1
+");
+
+if(mysqli_num_rows($q) > 0){
+
+    $last = mysqli_fetch_assoc($q);
+
+    $nomor = (int)substr($last['id_pembayaran'], -4);
+
+    $nomor++;
+
+}else{
+
+    $nomor = 1;
+
+}
+
+$id_pembayaran = "PAY-$tanggalHariIni-".str_pad($nomor,4,"0",STR_PAD_LEFT);
 
         $tanggal_upload = date('Y-m-d H:i:s');
 
