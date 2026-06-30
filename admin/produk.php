@@ -11,26 +11,25 @@ include '../config/koneksi.php';
 $data = mysqli_query($conn,"SELECT * FROM katalog");
 ?>
 
-<?php include 'template/header.php'; ?>
-<?php include 'template/sidebar.php'; ?>    
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kelola Produk</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
 
-<h1>Manajemen Produk</h1>
+<h2>Data Produk</h2>
 
-<p>Kelola seluruh katalog produk toko Buket.</p>
+<a href="?tambah=1">Tambah Produk</a>
+|
+<a href="dashboard.php">Dashboard</a>
 
-<br>
-<a href="?tambah=1" class="btn btn-success">
-    + Tambah Produk
-</a>
-<a href="dashboard.php" class="btn btn-primary">
-    Dashboard
-</a>
+<br><br>
 
 <?php
 if(isset($_GET['tambah'])){
 ?>
-
-<div class="card">
 
 <form action="../proses/tambah_produk.php"
 method="POST"
@@ -64,19 +63,17 @@ Status <br>
 
 <br><br>
 
-<button type="submit" class="btn btn-success">
-    Simpan
+<button type="submit">
+Simpan
 </button>
 
 </form>
-</div>
 
 <hr>
 
 <?php } ?>
 
-<div class="card">
-<table>
+<table border="1" cellpadding="10">
 
 <tr>
     <th>ID</th>
@@ -110,16 +107,15 @@ width="80">
 
 <td>
 
-<a href="edit_produk.php?id=<?= $row['id_produk']; ?>"
-class="btn btn-primary">
-    Edit
+<a href="edit_produk.php?id=<?= $row['id_produk']; ?>">
+Edit
 </a>
 
+|
 
 <a href="../proses/hapus_produk.php?id=<?= $row['id_produk']; ?>"
-class="btn btn-danger"
 onclick="return confirm('Yakin hapus produk?')">
-    Hapus
+Hapus
 </a>
 
 </td>
@@ -129,6 +125,6 @@ onclick="return confirm('Yakin hapus produk?')">
 <?php } ?>
 
 </table>
-</div>
 
-<?php include 'template/footer.php'; ?>
+</body>
+</html>

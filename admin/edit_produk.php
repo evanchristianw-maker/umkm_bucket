@@ -20,128 +20,60 @@ $data = mysqli_fetch_assoc($query);
 
 ?>
 
-<?php include 'template/header.php'; ?>
-<?php include 'template/sidebar.php'; ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Produk</title>
+</head>
+<body>
 
-<h1>Edit Produk</h1>
+<h2>Edit Produk</h2>
 
-<p>Silakan ubah data produk berikut.</p>
+<form action="../proses/edit_produk.php" method="POST">
 
-<br>
-
-<div class="card">
-
-<form action="../proses/update_produk.php"
-      method="POST"
-      enctype="multipart/form-data">
-
-<input
-type="hidden"
+<input type="hidden"
 name="id_produk"
 value="<?= $data['id_produk']; ?>">
 
-<label>Nama Produk</label>
-
-<input
-type="text"
+Nama Produk<br>
+<input type="text"
 name="nama_produk"
-value="<?= $data['nama_produk']; ?>"
-required>
-
-<label>Kategori</label>
-
-<input
-type="text"
-name="kategori"
-value="<?= $data['kategori']; ?>"
-required>
-
-<label>Harga</label>
-
-<input
-type="number"
-name="harga"
-value="<?= $data['harga']; ?>"
-required>
-
-<label>Deskripsi</label>
-
-<textarea
-name="deskripsi"
-rows="5"><?= $data['deskripsi']; ?></textarea>
-
-<label>Foto Produk Saat Ini</label>
-
-<br>
-
-<?php
-if($data['foto_produk']!=""){
-?>
-
-<img
-src="../assets/upload/produk/<?= $data['foto_produk']; ?>"
-style="
-width:180px;
-height:180px;
-object-fit:cover;
-border-radius:10px;
-border:1px solid #ddd;
-margin-bottom:15px;
-">
-
-<?php
-}else{
-    echo "<p>Tidak ada foto.</p>";
-}
-?>
-
-<label>Ganti Foto Produk</label>
-
-<input
-type="file"
-name="foto_produk"
-accept="image/*">
-
-<small>
-Kosongkan jika tidak ingin mengganti gambar.
-</small>
+value="<?= $data['nama_produk']; ?>">
 
 <br><br>
 
-<label>Status</label>
+Kategori<br>
+<input type="text"
+name="kategori"
+value="<?= $data['kategori']; ?>">
 
+<br><br>
+
+Harga<br>
+<input type="number"
+name="harga"
+value="<?= $data['harga']; ?>">
+
+<br><br>
+
+Deskripsi<br>
+<textarea name="deskripsi"><?= $data['deskripsi']; ?></textarea>
+
+<br><br>
+
+Status<br>
 <select name="status">
-
-<option
-value="Aktif"
-<?= ($data['status']=="Aktif") ? "selected" : ""; ?>>
-Aktif
-</option>
-
-<option
-value="Nonaktif"
-<?= ($data['status']=="Nonaktif") ? "selected" : ""; ?>>
-Nonaktif
-</option>
-
+    <option value="Aktif">Aktif</option>
+    <option value="Nonaktif">Nonaktif</option>
 </select>
 
-<br>
+<br><br>
 
-<button
-type="submit"
-class="btn btn-success">
+<button type="submit">
 Update Produk
 </button>
 
-<a
-href="produk.php"
-class="btn btn-primary">
-Kembali
-</a>
-
 </form>
 
-</div>
-
-<?php include 'template/footer.php'; ?>
+</body>
+</html>

@@ -3,14 +3,14 @@
 include '../config/koneksi.php';
 
 $id = $_POST['id_bahan'];
-$kode = $_POST['kode_bahan'];
+
 $nama = $_POST['nama_bahan'];
 $jumlah = $_POST['jumlah'];
 $satuan = $_POST['satuan'];
 
 mysqli_query($conn,"
-UPDATE stok_bahan SET
-kode_bahan='$kode',
+UPDATE stok_bahan
+SET
 nama_bahan='$nama',
 jumlah='$jumlah',
 satuan='$satuan'
