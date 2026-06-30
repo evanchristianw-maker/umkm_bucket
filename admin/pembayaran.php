@@ -117,10 +117,7 @@ Rp <?= number_format($data['total_harga'],0,",","."); ?>
 class="btn btn-info"
 onclick="lihatBukti(
 '<?= $data['id_pembayaran']; ?>',
-'<?= $data['file_bukti']; ?>',
-'<?= htmlspecialchars($data['catatan_cod']); ?>',
-'<?= $data['jumlah_cod']; ?>',
-'<?= $data['tipe_bayar']; ?>'
+'<?= $data['file_bukti']; ?>'
 )">
 Lihat
 </button>
@@ -173,62 +170,53 @@ echo "-";
 
 </div>
 
-<! MODAL LIHAT BUKTI >
+<!-- MODAL LIHAT BUKTI -->
 
 <div id="modalBukti" class="modal">
 
     <div class="modal-content">
 
-<span class="close" onclick="tutupModal()">&times;</span>
+        <span class="close" onclick="tutupModal()">&times;</span>
 
-<h2>Detail Pembayaran</h2>
+        <h2 style="text-align:center;">Bukti Pembayaran</h2>
 
-<hr><br>
+        <hr><br>
 
-<p><b>ID Pembayaran :</b></p>
-<p id="idPembayaran"></p>
+        <div style="text-align:center;">
 
-<br>
+            <img
+                id="gambarBukti"
+                src=""
+                alt="Bukti Pembayaran"
+                style="
+                    max-width:100%;
+                    max-height:500px;
+                    border-radius:10px;
+                    border:1px solid #ddd;
+                    box-shadow:0 3px 8px rgba(0,0,0,.15);
+                ">
 
-<p><b>Tipe Pembayaran :</b></p>
-<p id="tipeBayar"></p>
+        </div>
 
-<br>
+        <br>
 
-<p><b>Catatan COD :</b></p>
-<p id="catatanCod"></p>
+        <div style="text-align:center;">
 
-<br>
+            <button
+                class="btn btn-primary"
+                onclick="tutupModal()">
 
-<p><b>Jumlah COD :</b></p>
-<p id="jumlahCod"></p>
+                Tutup
 
-<br>
+            </button>
 
-<p><b>Bukti Pembayaran :</b></p>
+        </div>
 
-<img
-id="gambarBukti"
-src=""
-alt="Bukti Pembayaran">
-
-<br><br>
-
-<center>
-
-<button
-class="btn btn-info"
-onclick="tutupModal()">
-Tutup
-</button>
-
-</center>
+    </div>
 
 </div>
 
-</div>
-
-<! FORM VERIFIKASI >
+<!-- FORM VERIFIKASI -->
 
 <form
 id="formVerifikasi"
@@ -275,21 +263,16 @@ id="alasanTolak">
 
 <script>
 
-function lihatBukti(id,file,catatan,jumlah,tipe){
+function lihatBukti(id,file){
 
-document.getElementById("modalBukti").style.display="block";
+    document.getElementById("modalBukti").style.display="block";
 
-document.getElementById("idPembayaran").innerHTML=id;
-
-document.getElementById("tipeBayar").innerHTML=tipe;
-
-document.getElementById("catatanCod").innerHTML=catatan;
-
-document.getElementById("jumlahCod").innerHTML=jumlah;
-
-document.getElementById("gambarBukti").src="../assets/upload/pembayaran/"+file;
+    document.getElementById("gambarBukti").src =
+    "../assets/upload/produk/" + file;
 
 }
+
+
 
 function tutupModal(){
 

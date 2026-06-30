@@ -53,6 +53,7 @@ required>
 <input
 type="number"
 name="jumlah"
+min="0"
 required>
 
 <label>Satuan</label>
@@ -100,6 +101,12 @@ Simpan
 
 <?php while($row=mysqli_fetch_assoc($data)){ ?>
 
+<?php
+    // Pastikan jumlah tidak pernah ditampilkan negatif,
+    // walau data di database entah kenapa minus
+    $jumlahTampil = max(0, (int)$row['jumlah']);
+?>
+
 <tr>
 
 <td><?= $row['kode_bahan']; ?></td>
@@ -110,13 +117,13 @@ Simpan
 
 <?php
 
-if($row['jumlah']==0){
+if($jumlahTampil == 0){
 
     echo "<span style='color:red;font-weight:bold;'>0</span>";
 
 }else{
 
-    echo $row['jumlah'];
+    echo $jumlahTampil;
 
 }
 
@@ -130,11 +137,11 @@ if($row['jumlah']==0){
 
 <?php
 
-if($row['jumlah'] > 5){
+if($jumlahTampil > 5){
 
     echo "<span class='status aman'>Aman</span>";
 
-}elseif($row['jumlah'] > 0){
+}elseif($jumlahTampil > 0){
 
     echo "<span class='status menipis'>Menipis</span>";
 

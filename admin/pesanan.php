@@ -112,6 +112,8 @@ Rp <?= number_format($data['total_harga'],0,",","."); ?>
 Detail
 </a>
 
+
+
 </td>
 
 </tr>

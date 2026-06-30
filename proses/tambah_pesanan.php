@@ -9,6 +9,7 @@ $aksi = $_GET['aksi'] ?? '';
 // ============================================================
 if ($aksi === 'simpan_pesanan') {
 
+
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         header('Location: ../customer/katalog.php');
         exit;
@@ -55,28 +56,62 @@ if ($aksi === 'simpan_pesanan') {
         VALUES ('$id_pesanan', '$nama_pemesan', '$no_telepon', '$tipe_pengambilan', '$tanggal_pesan', '$tanggal_ambil', $total_harga, 'Pending')
     ");
 
-    if ($queryPesanan) {
-        // Insert ke tabel detail_pesanan
-        mysqli_query($conn, "
-            INSERT INTO detail_pesanan (id_pesanan, id_produk, jumlah, warna_kertas, jenis_isi, isi_custom, ucapan, tambahan)
-            VALUES ('$id_pesanan', $id_produk, $jumlah, '$warna_kertas', '$jenis_isi', '$isi_custom', '$ucapan', '$tambahan')
-        ");
+  if ($queryPesanan) {
 
-        // Redirect ke halaman pembayaran
-        header('Location: ../customer/pesan.php?step=bayar&id=' . $id_pesanan);
-        exit;
-    } else {
-        $_SESSION['error'] = 'Gagal menyimpan pesanan. Silakan coba lagi.';
-        header('Location: ../customer/pesan.php?id=' . $id_produk);
+    mysqli_query($conn, "
+        INSERT INTO detail_pesanan
+        (id_pesanan,id_produk,jumlah,warna_kertas,jenis_isi,isi_custom,ucapan,tambahan)
+        VALUES
+        ('$id_pesanan',$id_produk,$jumlah,'$warna_kertas','$jenis_isi','$isi_custom','$ucapan','$tambahan')
+    ");
+
+    // ============================
+    // KURANGI STOK BAHAN
+    // ============================
+
+    if ($is_custom) {
+
+        // Kertas
+if ($warna_kertas != "") {
+    $sql = "UPDATE stok_bahan
+            SET jumlah = GREATEST(jumlah - $jumlah, 0)
+            WHERE nama_bahan='$warna_kertas'";
+    mysqli_query($conn, $sql);
+}
+
+// Jenis Isi
+if ($jenis_isi != "") {
+    $sql = "UPDATE stok_bahan
+            SET jumlah = GREATEST(jumlah - $jumlah, 0)
+            WHERE kode_bahan='$jenis_isi'";
+    mysqli_query($conn, $sql);
+}
+
+// Tambahan
+if (!empty($_POST['tambahan'])) {
+    foreach ($_POST['tambahan'] as $item) {
+        $sql = "UPDATE stok_bahan
+                SET jumlah = GREATEST(jumlah - $jumlah, 0)
+                WHERE kode_bahan='$item'";
+        mysqli_query($conn, $sql);
+    }
+}
+
+        header("Location: ../customer/pesan.php?step=bayar&id=".$id_pesanan);
         exit;
     }
+
+    header("Location: ../customer/pesan.php?step=bayar&id=".$id_pesanan);
+    exit;
+
+  } // <-- INI YANG HILANG: penutup if ($queryPesanan)
+
 }
 
 // ============================================================
 // AKSI 2: UPLOAD BUKTI PEMBAYARAN
 // ============================================================
 elseif ($aksi === 'upload_bukti') {
-
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         header('Location: ../customer/katalog.php');
         exit;
