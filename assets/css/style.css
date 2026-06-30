@@ -1,20 +1,837 @@
-body{
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f4f4f4;
+/* ======================================================
+   RESET
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Arial, sans-serif;
 }
 
-.dashboard{
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
+/* ======================================================
+   COLOR THEME
+
+:root{
+
+    /* WARNA UTAMA */
+    --primary:#3b5229;
+    --primary-dark:#2c3f1f;
+    --primary-light:#a2b48a;
+
+    /* WARNA STATUS */
+    --success:#1ba363;
+    --warning:#f2be1a;
+    --danger:#dc2f37;
+    --info:#3b82f6;
+
+    /* WARNA KHUSUS */
+    --whatsapp:#14c26b;
+    --badge-selesai:#058d4a;
+    --logout:#b84141;
+
+    /* WARNA NETRAL */
+    --white:#ffffff;
+    --black:#333333;
+    --border:#dddddd;
+    --bg-light:#f5f6f8;
+    --card:#ffffff;
+
+    /* Shadow */
+    --shadow:0 4px 12px rgba(0,0,0,.08);
+
+    /* Radius */
+    --radius:10px;
+
+}
+
+.pending{
+    background:#ffc107;
+    color:#333;
+}
+
+.diproses{
+    background:#3b82f6;
+}
+
+.selesai{
+    background:#1ba363;
+}
+
+.dibatalkan{
+    background:#dc2f37;
+}
+/* ======================================================
+   BODY
+
+body{
+    background:var(--bg-light);
+    color:var(--black);
+}
+
+/* ======================================================
+   HEADING
+
+h1{
+
+    font-size:30px;
+    margin-bottom:10px;
+    color:var(--primary);
+
+}
+
+h2{
+
+    font-size:24px;
+    margin-bottom:10px;
+
+}
+
+h3{
+
+    margin-bottom:10px;
+
+}
+
+p{
+
+    line-height:1.6;
+
+}
+
+/* ======================================================
+   LAYOUT
+
+.container{
+    display:flex;
+}
+
+.content{
+    margin-left:240px;
+    padding:30px;
+    width:calc(100% - 240px);
+}
+
+.content > *{
+    max-width:1100px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* ======================================================
+   SIDEBAR
+
+.sidebar{
+
+    width:240px;
+    min-height:100vh;
+
+    background:var(--primary);
+
+    position:fixed;
+
+}
+
+.sidebar h2{
+
+    color:white;
+    text-align:center;
+    padding:25px 0;
+
+}
+
+.sidebar a{
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:15px 25px;
+
+    transition:.3s;
+
+}
+
+.sidebar a:hover{
+
+    background:var(--primary-dark);
+
+}
+
+.sidebar .active{
+
+    background:var(--primary-dark);
+
+    color:var(--primary-light);
+
+}
+
+/* ======================================================
+   CARD
+
+.card{
+
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ======================================================
+   BUTTON
+
+.btn{
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.25s;
+
+}
+
+.btn:hover{
+
+    opacity:.9;
+    transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+    background:var(--primary);
+
+}
+
+.btn-success{
+
+    background:var(--success);
+
+}
+
+.btn-warning{
+
+    background:var(--warning);
+
+    color:#333;
+
+}
+
+.btn-danger{
+
+    background:var(--danger);
+
+}
+
+.btn-info{
+    background:var(--info);
+}
+
+/* ======================================================
+   TABLE
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+table th{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+table th,
+table td{
+
+    padding:12px;
+
+    border:1px solid #e5e5e5;
+
+    text-align:left;
+
+}
+
+table tr:nth-child(even){
+
+    background:#fafafa;
+
+}
+
+table tr:hover{
+
+    background:#f2f2f2;
+
+}
+
+
+/* ======================================================
+   FORM
+
+form{
+    margin-top:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+    padding:10px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    margin-bottom:15px;
+    outline:none;
+
+    transition:.3s;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(59,82,41,.15);
+
+}
+
+textarea{
+
+    resize:vertical;
+    min-height:120px;
+
+}
+
+input[type="file"]{
+
+    padding:8px;
+    background:white;
+
+}
+
+::placeholder{
+
+    color:#999;
+
+}
+
+/* ======================================================
+   PRODUCT CARD
+
+.product-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+
+    gap:20px;
+
+}
+
+.product-card{
+
+    background:white;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+}
+
+.product-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.product-card .info{
+
+    padding:15px;
+
+}
+
+.product-card h3{
+
+    margin-bottom:10px;
+
+}
+
+.product-card p{
+
+    margin-bottom:8px;
+
+}
+
+/* ======================================================
+   LOGIN
+
+.login-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+}
+
+.login-card{
+
+    width:400px;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:12px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.login-card h1{
+
+    color:var(--primary);
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+}
+
+.login-card p{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    color:#666;
+
+}
+
+.login-card .btn{
+
+    width:100%;
+
+}
+
+/* ======================================================
+   STATUS STOK
+
+.status{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    color:white;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+
+.aman{
+
+    background:var(--success);
+
+}
+
+.menipis{
+
+    background:var(--warning);
+
+    color:#333;
+
+}
+
+.habis{
+
+    background:var(--danger);
+
+}
+
+/* ======================================================
+   RESPONSIVE
+
+@media (max-width:768px){
+
+    .sidebar{
+
+        position:relative;
+        width:100%;
+        min-height:auto;
+
+    }
+
+    .content{
+
+        margin-left:0;
+        padding:15px;
+
+    }
+
+    table{
+
+        display:block;
+        overflow-x:auto;
+
+    }
+
+    .login-card{
+
+        width:95%;
+
+    }
+
+    .product-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+/* ===============================
+   DASHBOARD CARD
+
+.stat-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:25px;
+
+}
+
+.stat-card{
+
+    color:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:var(--shadow);
+
+}
+
+.dark-green{
+    background:var(--primary);
+}
+
+.yellow{
+    background:var(--warning);
+    color:#333;
+}
+
+.red{
+    background:var(--danger);
+}
+
+.green{
+    background:var(--success);
+}
+
+.stat-lbl{
+
+    font-size:15px;
+
+}
+
+.stat-num{
+
+    margin-top:10px;
+    font-size:28px;
+    font-weight:bold;
+
+}
+/* ===============================
+   TABLE PANEL
+
+.table-panel{
+
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:var(--shadow);
+
+}
+
+.table-panel-head{
+
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:20px;
+    color:var(--primary);
+
+}
+/* ===============================
+   STATUS PESANAN
+
+.status-badge{
+
+    padding:6px 12px;
+    border-radius:20px;
+    color:white;
+    font-size:13px;
+    font-weight:bold;
+
+}
+
+.status-badge.menunggu{
+
+    background:var(--warning);
+    color:#333;
+
+}
+
+.status-badge.diproses{
+
+    background:var(--info);
+
+}
+
+.status-badge.siap{
+
+    background:var(--primary);
+
+}
+
+.status-badge.selesai{
+
+    background:var(--success);
+
+}
+
+.status-badge.batal{
+
+    background:var(--danger);
+
+}
+.wa-badge{
+
+    display:inline-block;
+    margin-top:5px;
+    padding:5px 10px;
+    background:var(--whatsapp);
+    color:white;
+    text-decoration:none;
+    border-radius:20px;
+    font-size:13px;
+
+}
+.empty{
+
+    padding:40px;
+    text-align:center;
+    color:#777;
+
+}
+
+.modal{
+
+display:none;
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+z-index:999;
+
+}
+
+.modal-content{
+
+background:white;
+width:550px;
+margin:60px auto;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+}
+
+.close{
+
+float:right;
+font-size:26px;
+cursor:pointer;
+
+}
+
+.pending{
+    background:#ffc107;
+    color:#333;
+}
+
+.verifikasi{
+    background:#1ba363;
+}
+
+.tolak{
+    background:#dc2f37;
+}
+.pending{
+    background:#f2be1a;
+    color:#333;
+}
+
+.diproses{
+    background:#3b82f6;
+    color:#fff;
+}
+
+.selesai{
+    background:#1ba363;
+    color:#fff;
+}
+
+.dibatalkan{
+    background:#dc2f37;
+    color:#fff;
+}
+.menunggu{
+    background:#f2be1a;
+    color:#333;
+}
+
+.diproses{
+    background:#3b82f6;
+}
+
+.selesai{
+    background:#1ba363;
+}
+
+.dibatalkan{
+    background:#dc2f37;
+}
+.card{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    padding:12px 15px;
+    text-align:center;
+    vertical-align:middle;
+}
+
+table th{
+    background:#3b5229;
+    color:white;
+}
+
+table tr:nth-child(even){
+    background:#f8f8f8;
+}
+
+table tr:hover{
+    background:#eef3ea;
+}
+.status-select{
+
+padding:8px;
+border-radius:8px;
+font-weight:bold;
+border:none;
+color:white;
+
+}
+
+.status-menunggu{
+background:#ffc107;
+color:#333;
+}
+
+.status-diproses{
+background:#0dcaf0;
+}
+
+.status-selesai{
+background:#198754;
+}
+
+.status-dibatalkan{
+background:#dc3545;
+}
+.card{
+    max-width:100%;
+}
+.detail-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.detail-table td{
+padding:12px;
+border-bottom:1px solid #ddd;
+vertical-align:top;
 }
 
 .card{
-    width: 200px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    text-align: center;
+margin-bottom:20px;
+}
+
+.card h2{
+margin-bottom:15px;
 }

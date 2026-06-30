@@ -52,14 +52,22 @@ if ($step === 'form'):
     $tambahan  = [];
 
     while ($bahan = mysqli_fetch_assoc($qBahan)) {
-        if (strpos($bahan['nama_bahan'], 'Kertas Wrap') !== false) {
-            $warnaWrap[] = $bahan;
-        } elseif (in_array($bahan['kode_bahan'], ['bunga_artifisial', 'bunga_segar', 'snack', 'uang'])) {
-            $jenisIsi[] = $bahan;
-        } else {
-            $tambahan[] = $bahan;
-        }
+
+    if (strpos($bahan['nama_bahan'], 'Kertas') !== false) {
+
+        $warnaWrap[] = $bahan;
+
+    } elseif ($bahan['nama_bahan'] == 'Bunga Mawar') {
+
+        $jenisIsi[] = $bahan;
+
+    } else {
+
+        $tambahan[] = $bahan;
+
     }
+
+}
 ?>
 
 <nav class="navbar py-3 mb-4">

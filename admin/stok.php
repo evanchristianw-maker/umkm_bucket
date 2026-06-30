@@ -9,23 +9,24 @@ if(!isset($_SESSION['id_admin'])){
 
 include '../config/koneksi.php';
 
-$data = mysqli_query($conn,"
-SELECT *
-FROM stok_bahan
-");
+$data = mysqli_query($conn, "SELECT * FROM stok_bahan");
+
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Stok Bahan</title>
-</head>
-<body>
+<?php include 'template/header.php'; ?>
+<?php include 'template/sidebar.php'; ?>
 
-<h2>Data Stok Bahan</h2>
+<h1>Manajemen Stok Bahan</h1>
 
-<a href="?tambah=1">
-Tambah Bahan
+<p>Kelola seluruh data stok bahan baku yang digunakan dalam pembuatan bucket.</p>
+
+<br>
+
+<a href="?tambah=1" class="btn btn-success">
+    + Tambah Bahan
+</a>
+<a href="dashboard.php" class="btn btn-primary">
+    Dashboard
 </a>
 
 <br><br>
@@ -34,60 +35,76 @@ Tambah Bahan
 if(isset($_GET['tambah'])){
 ?>
 
-<form action="../proses/tambah_stok.php"
-method="POST">
+<div class="card">
 
-Nama Bahan <br>
-<input type="text"
+<h2>Tambah Stok Bahan</h2>
+
+<form action="../proses/tambah_stok.php" method="POST">
+
+<label>Nama Bahan</label>
+
+<input
+type="text"
 name="nama_bahan"
 required>
 
-<br><br>
+<label>Jumlah</label>
 
-Jumlah <br>
-<input type="number"
+<input
+type="number"
 name="jumlah"
+min="0"
 required>
 
-<br><br>
+<label>Satuan</label>
 
-Satuan <br>
-<input type="text"
+<input
+type="text"
 name="satuan"
 required>
 
-<br><br>
+<label>Kode Bahan</label>
 
-Kode Bahan <br>
-<input type="text"
+<input
+type="text"
 name="kode_bahan"
 required>
 
-<br><br>
-
-<button>
+<button
+type="submit"
+class="btn btn-success">
 Simpan
 </button>
 
 </form>
 
-<hr>
+</div>
+
+<br>
 
 <?php } ?>
 
-<table border="1"
-cellpadding="10">
+<div class="card">
+
+<table>
 
 <tr>
+
 <th>Kode</th>
-<th>Nama</th>
+<th>Nama Bahan</th>
 <th>Jumlah</th>
 <th>Satuan</th>
+<th>Status</th>
 <th>Aksi</th>
+
 </tr>
 
+<?php while($row=mysqli_fetch_assoc($data)){ ?>
+
 <?php
-while($row=mysqli_fetch_assoc($data)){
+    // Pastikan jumlah tidak pernah ditampilkan negatif,
+    // walau data di database entah kenapa minus
+    $jumlahTampil = max(0, (int)$row['jumlah']);
 ?>
 
 <tr>
@@ -96,20 +113,58 @@ while($row=mysqli_fetch_assoc($data)){
 
 <td><?= $row['nama_bahan']; ?></td>
 
-<td><?= $row['jumlah']; ?></td>
+<td>
+
+<?php
+
+if($jumlahTampil == 0){
+
+    echo "<span style='color:red;font-weight:bold;'>0</span>";
+
+}else{
+
+    echo $jumlahTampil;
+
+}
+
+?>
+
+</td>
 
 <td><?= $row['satuan']; ?></td>
 
 <td>
 
-<a href="edit_stok.php?id=<?= $row['id_bahan']; ?>">
+<?php
+
+if($jumlahTampil > 5){
+
+    echo "<span class='status aman'>Aman</span>";
+
+}elseif($jumlahTampil > 0){
+
+    echo "<span class='status menipis'>Menipis</span>";
+
+}else{
+
+    echo "<span class='status habis'>Habis</span>";
+
+}
+
+?>
+
+</td>
+
+<td>
+
+<a href="edit_stok.php?id=<?= $row['id_bahan']; ?>"
+class="btn btn-primary">
 Edit
 </a>
 
-|
-
 <a href="../proses/hapus_stok.php?id=<?= $row['id_bahan']; ?>"
-onclick="return confirm('Yakin hapus bahan?')">
+class="btn btn-danger"
+onclick="return confirm('Yakin ingin menghapus bahan ini?')">
 Hapus
 </a>
 
@@ -121,5 +176,6 @@ Hapus
 
 </table>
 
-</body>
-</html>
+</div>
+
+<?php include 'template/footer.php'; ?>
